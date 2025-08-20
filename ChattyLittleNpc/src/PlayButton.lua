@@ -123,7 +123,7 @@ function PlayButton:AttachQuestLogAndDetailsButtons()
 
     local DetailsFrame = QuestMapFrame and QuestMapFrame.DetailsFrame
     if (DetailsFrame) then
-        PlayButton:AttachPlayButtonForQuestLog(DetailsFrame, -10, -10, PlayButton.DetailFrameButton)
+        PlayButton:AttachPlayButtonForQuestLog(DetailsFrame, 35, 50, PlayButton.DetailFrameButton)
     end
 
     if (_G["QuestLogFrame"]) then
@@ -201,12 +201,12 @@ function PlayButton:GenerateSpeakChatBubbleButton(parentFrame, buttonName, offse
 
     local texture = button:CreateTexture(nil, "BACKGROUND")
     texture:SetAllPoints()
-    texture:SetTexture("Interface\\AddOns\\ChattyLittleNpc\\Icons\\speech-bubble-border.png")
+    texture:SetTexture("Interface\\AddOns\\ChattyLittleNpc\\Icons\\speech-bubble-border.tga")
 
     -- Create a glow texture
     local glowTexture = button:CreateTexture(nil, "OVERLAY")
     glowTexture:SetAllPoints()
-    glowTexture:SetTexture("Interface\\AddOns\\ChattyLittleNpc\\Icons\\speech-bubble-border-glow.png")
+    glowTexture:SetTexture("Interface\\AddOns\\ChattyLittleNpc\\Icons\\speech-bubble-border-glow.tga")
     glowTexture:Hide()
 
     button:SetScript("OnEnter", function()
@@ -233,18 +233,18 @@ function PlayButton:GenerateSpeakChatBubbleButton(parentFrame, buttonName, offse
             local parentRight, parentTop = parentFrame:GetRight(), parentFrame:GetTop()
             local newX = parentRight - right
             local newY = parentTop - top
-    
+
             -- Constrain the movement within -100 to 100 units in both x and y axes
             if newX < -100 then newX = -100 end
             if newY < -100 then newY = -100 end
             if newX > 100 then newX = 100 end
             if newY > 100 then newY = 100 end
-    
+
             self:ClearAllPoints()
             self:SetPoint("TOPRIGHT", parentFrame, "TOPRIGHT", -newX, -newY)
         end)
     end)
-    
+
     button:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
         self:SetScript("OnUpdate", nil)
@@ -315,12 +315,12 @@ function PlayButton:GenerateElvUiStyleButton(parentFrame, buttonName, offsetX, o
             if newY < -100 then newY = -100 end
             if newX > 100 then newX = 100 end
             if newY > 100 then newY = 100 end
-    
+
             self:ClearAllPoints()
             self:SetPoint("TOPRIGHT", parentFrame, "TOPRIGHT", -newX, -newY)
         end)
     end)
-    
+
     button:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
         self:SetScript("OnUpdate", nil)
