@@ -42,7 +42,7 @@ function MD5:Padding(len)
     local bits = len * 8
     local pad_len = 56 - (len + 1) % 64
     if (pad_len < 0) then
-        pad_len = pad_len + 64   
+        pad_len = pad_len + 64
     end
     local padding = "\128" .. string.rep("\0", pad_len) .. char(bits % 256)
     bits = floor(bits / 256)
@@ -99,6 +99,17 @@ function MD5:ProcessChunk(chunk, H0, H1, H2, H3)
     return H0, H1, H2, H3
 end
 
+local function to32(x)
+    return x % 2^32
+end
+local function tohex(x)
+    x = x % 0x100000000
+    local hi = math.floor(x / 0x10000)
+    local lo = x % 0x10000
+    return string.format("%04x%04x", hi, lo)
+end
+
+
 -- Main MD5 function
 function MD5:GenerateHash(message)
     -- Reset MD5 initialization constants
@@ -110,9 +121,10 @@ function MD5:GenerateHash(message)
     for i = 1, #message, 64 do
         local chunk = {byte(sub(message, i, i + 63), 1, 64)}
         H0, H1, H2, H3 = self:ProcessChunk(chunk, H0, H1, H2, H3)
+        H0, H1, H2, H3 = to32(H0), to32(H1), to32(H2), to32(H3) -- Make sure to not let it overflow
     end
 
-    return string.format("%08x%08x%08x%08x", H0, H1, H2, H3)
+    return tohex(H0) .. tohex(H1) .. tohex(H2) .. tohex(H3)
 end
 
 function CLN:RunMD5TestCases()
