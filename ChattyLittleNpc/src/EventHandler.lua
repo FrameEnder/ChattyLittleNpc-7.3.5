@@ -77,10 +77,6 @@ function EventHandler:GOSSIP_SHOW()
         return
     end
 
-    if (CLN.db.profile.logNpcTexts) then
-        CLN.NpcDialogTracker:HandleGossipText()
-    end
-
     local hashes = CLN.Utils:GetHashes(unitId, text)
     local filePath = CLN.Utils:GetPathToNonQuestFile(unitId, "Gossip", hashes, gender)
     if not filePath or CLN.Utils:IsNilOrEmpty(filePath) then
@@ -100,6 +96,10 @@ function EventHandler:GOSSIP_SHOW()
         end
 
         CLN:HandleGossipPlaybackStart(unitId, text, type, gender)
+    end
+
+    if (CLN.db.profile.logNpcTexts) then
+        CLN.NpcDialogTracker:HandleGossipText()
     end
 end
 
@@ -231,7 +231,6 @@ end
 function EventHandler:QUEST_FINISHED()
     CLN.Utils:LogDebug("QUEST_FINISHED")
     if (CLN.db.profile.stopVoiceoverAfterDialogWindowClose and CLN.VoiceoverPlayer.currentlyPlaying) then
-        CLN.Utils:LogDebug("Stopping currently playing voiceover on quest finished.")
         CLN.VoiceoverPlayer:ForceStopCurrentSound(true)
     end
 end
@@ -241,7 +240,6 @@ function EventHandler:GOSSIP_CLOSED()
     CLN.PlayButton:ClearButtons()
 
     if (CLN.db.profile.stopVoiceoverAfterDialogWindowClose and CLN.VoiceoverPlayer.currentlyPlaying) then
-        CLN.Utils:LogDebug("Stopping currently playing voiceover on gossip closed.")
         CLN.VoiceoverPlayer:ForceStopCurrentSound(true)
     end
 end
@@ -249,7 +247,6 @@ end
 function EventHandler:CINEMATIC_START()
     CLN.Utils:LogDebug("CINEMATIC_START")
     if (CLN.VoiceoverPlayer.currentlyPlaying and CLN.VoiceoverPlayer.currentlyPlaying:isPlaying()) then
-        CLN.Utils:LogDebug("Stopping currently playing voiceover on cinematic start.")
         CLN.VoiceoverPlayer:ForceStopCurrentSound(true)
     end
 end
@@ -257,7 +254,6 @@ end
 function EventHandler:PLAY_MOVIE()
     CLN.Utils:LogDebug("PLAY_MOVIE")
     if (CLN.VoiceoverPlayer.currentlyPlaying and CLN.VoiceoverPlayer.currentlyPlaying:isPlaying()) then
-        CLN.Utils:LogDebug("Stopping currently playing voiceover on movie play.")
         CLN.VoiceoverPlayer:ForceStopCurrentSound(true)
     end
 end
