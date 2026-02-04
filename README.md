@@ -7,8 +7,8 @@
 </h1>
 
 <h1 align="center">
-    <a href="https://www.paypal.com/donate/?hosted_button_id=CZGQYKYFRURMW" target="_blank">
-        <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal">
+    <a href="https://github.com/mantaskazlauskas/ChattyLittleNpc" target="_blank">
+        <img src="https://img.shields.io/badge/github-repo-blue?logo=github" alt="Github Repo">
     </a>
     <br>
     Support the Original Developer
